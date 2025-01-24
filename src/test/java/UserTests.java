@@ -1,3 +1,5 @@
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +11,12 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class UserTests {
 
     private String userId; // Переменная для хранения id созданного пользователя
+
+    @BeforeAll
+    public static void setUp() {
+        RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath = "/api";
+    }
 
     // Позитивные тесты
     @Test
@@ -23,7 +31,7 @@ public class UserTests {
                 .log().uri()
 
                 .when()
-                .post("https://reqres.in/api/users")
+                .post("/users")
 
                 .then()
                 .log().status()
@@ -40,7 +48,7 @@ public class UserTests {
                 .log().uri()
 
                 .when()
-                .delete("https://reqres.in/api/users/" + userId)
+                .delete("/users/" + userId)
 
                 .then()
                 .log().status()
@@ -58,7 +66,7 @@ public class UserTests {
                 .log().uri()
 
                 .when()
-                .post("https://reqres.in/api/users")
+                .post("/users")
 
                 .then()
                 .log().status()
@@ -79,7 +87,7 @@ public class UserTests {
                 .log().uri()
 
                 .when()
-                .patch("https://reqres.in/api/users/" + userId)
+                .patch("/users/" + userId)
 
                 .then()
                 .log().status()
@@ -95,7 +103,7 @@ public class UserTests {
         given()
                 .when()
                 .queryParam("page", "1")
-                .get("https://reqres.in/api/users/")
+                .get("/users/")
 
                 .then()
                 .log().status()
@@ -112,7 +120,7 @@ public class UserTests {
                 .log().uri()
 
                 .when()
-                .post("https://reqres.in/api/users")
+                .post("/users")
 
                 .then()
                 .log().status()
@@ -133,7 +141,7 @@ public class UserTests {
                 .log().uri()
 
                 .when()
-                .post("https://reqres.in/api/users")
+                .post("/users")
 
                 .then()
                 .log().status()
@@ -156,7 +164,7 @@ public class UserTests {
                 .log().uri() // Логируем URI запроса
 
                 .when()
-                .patch("https://reqres.in/api/users/" + nonExistentUserId) // Пытаемся обновить несуществующего пользователя
+                .patch("/users/" + nonExistentUserId) // Пытаемся обновить несуществующего пользователя
 
                 .then()
                 .log().status() // Логируем статус ответа
