@@ -12,8 +12,6 @@ import static specs.TestSpec.*;
 
 public class UserTests extends TestBase {
 
-    private String userId; // Переменная для хранения id созданного пользователя
-
     // Позитивные тесты
     @Test
     @DisplayName("Проверка успешного создания пользователя")
